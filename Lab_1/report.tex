@@ -365,5 +365,11 @@ Naively, this would suggest that the parallel capacitance should be smaller.
 However, changing the capacitance would also move the resonance frequency away from the expected value at 178MHz.
 So we need to investigate other parasitics correctly explain this discrepancy.
 
+\section{Summary}
+In this lab we used VNA and LTSpice to build electric models that describe a capacitor and inductor.
+We discovered that the capacitor can be pretty well described by a capacitor, an inductor, and a resistor in series; but the inductor needs a parallel capacitor, some series resistance, as well as some parallel resistance to model well.
+Suprisingly, the parallel resistance of the inductor is quite small -- only $3.4k\Omega$.
+
+This work can be extended by better understanding the residual parasitics of these componenents, as well as automating the process of building electric models for passive componenets.
 
 \end{document}
