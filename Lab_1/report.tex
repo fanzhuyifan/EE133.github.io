@@ -39,17 +39,17 @@ To this end, we use Vector Network Analyzers (VNA) to measure the frequency resp
     \centering
     \begin{subfigure}{.5\linewidth}
         \centering
-\includegraphics[width=.8\linewidth]{./pics/test_loads.jpg}
+        \includegraphics[width=.8\linewidth]{./pics/test_loads.jpg}
         \caption{Picture of RF Demo Kit NWDZ}
         \label{fig:test_loads}
     \end{subfigure}%
     \begin{subfigure}{.5\linewidth}
         \centering
-\includegraphics[width=.8\linewidth]{./pics/NanoVNA.jpg}
+        \includegraphics[width=.8\linewidth]{./pics/NanoVNA.jpg}
         \caption{Picture of NanoVNA}
         \label{fig:nanovna}
     \end{subfigure}
-\caption{Picture of Tools used in Experiment}
+    \caption{Picture of Tools used in Experiment}
 \end{figure}
 
 The passive componenets of interest are all surface mount components on the \emph{RF Demo Kit NWDZ Rev-01-10} (\Cref{fig:test_loads}), and
@@ -62,11 +62,11 @@ Care is taken to calibrate the NanoVNA each time before use.
 \begin{figure}[h]
     \centering
     \begin{subfigure}{0.5\linewidth}
-        \includegraphics[width=.9\linewidth]{./pics/capacitor_meas_smith.png}
+        \includegraphics[width=\linewidth]{./pics/capacitor_meas_smith.png}
         \caption{S11 on Smith Chart}
     \end{subfigure}%
     \begin{subfigure}{0.5\linewidth}
-        \includegraphics[width=.9\linewidth]{./pics/capacitor_meas_db.png}
+        \includegraphics[width=\linewidth]{./pics/capacitor_meas_db.png}
         \caption{Magnitude of Impedance}
     \end{subfigure}
 
@@ -82,12 +82,13 @@ Care is taken to calibrate the NanoVNA each time before use.
             \\\hline
             100.04          & -0.86-0.53j & -0.41-14.14j
             \\\hline
-            305.0195        & -0.99+0.00j & 0.19+0.01j
+            304.020         & -0.99-0.00j & 0.14-0.03j
             \\\hline
             500             & -0.94+0.20j & 0.98+5.25j
             \\\hline
         \end{tabular}
         \caption{S11 and Impedance at certain frequencies}
+        \label{tab:capacitor_meas}
     \end{subfigure}
 
     \caption{S Parameter of Measured Capacitor}
@@ -110,25 +111,39 @@ We measured the S-Parameters of the capacitor in the kit (item 7 in \Cref{fig:te
         \centering
         \begin{tikzpicture}
             \draw (0,0) to[C, label=100pF] ++(2,0)
-            to[L, label=123] ++(2, 0);
+            to[L, label=2.74nH] ++(2, 0);
         \end{tikzpicture}
         \caption{Capacitor with Series Inductance}
         \label{fig:capacitor_cl}
+    \end{subfigure}%
+
+    \begin{subfigure}{.5\linewidth}
+        \centering
+        \begin{tikzpicture}
+            \draw (0,0) to[C, label=100pF] ++(2,0)
+            to[L, label=2.74nH] ++(2, 0)
+            to[R, label=$0.14\Omega$] ++(2,0);
+        \end{tikzpicture}
+        \caption{Capacitor with Series Inductance and Resistance}
+        \label{fig:capacitor_clr}
     \end{subfigure}%
     \caption{Electric Models of Real Life Capacitor}
 \end{figure}
 
 \begin{figure}
     \centering
-    \begin{subfigure}{0.5\linewidth}
+    \begin{subfigure}{\linewidth}
         \centering
         \includegraphics[width=\linewidth]{./pics/capacitor_models_smith.png}
         \caption{S11 of electric models of capacitor on Smith Chart}
-    \end{subfigure}%
-    \begin{subfigure}{0.5\linewidth}
+        \label{fig:capacitor_compare_s}
+    \end{subfigure}
+
+    \begin{subfigure}{\linewidth}
         \centering
         \includegraphics[width=\linewidth]{./pics/capacitor_models_db.png}
         \caption{Magnitude of Impedance of electric models of capacitor}
+        \label{fig:capacitor_compare_z}
     \end{subfigure}
     \caption{Electric Characteristics of real capacitor compared with various models}
     \label{fig:capacitor_compare}
@@ -139,22 +154,41 @@ Using the impendance at 10MHz, we see that the capacitance is roughly
 $$\frac{1}{2\pi\cdot 10MHz \cdot 157 \Omega} \approx 100pF .$$
 So our first model of the element would just be an ideal capacitor of $100pF$ (\Cref{fig:capacitor_c}).
 
-However, immediately we see that the ideal capacitor does not fully characterize the real capacitor: in the Smith chart, S11 crosses the real axis and goes into the upper half of the unit circle, and in the impedance magnitude plot, the impedance has a minimum at around 300MHz.
-(\Cref{fig:capacitor_compare})
+However, immediately we see that the ideal capacitor does not fully characterize the real capacitor.
+In the Smith chart (\Cref{fig:capacitor_compare_s}), S11 crosses the real axis and goes into the upper half of the unit circle, and in the impedance magnitude plot (\Cref{fig:capacitor_compare_z}), the impedance has a minimum at around 300MHz.
 
-\subsubsection{Parasitic Inductance}
+\subsubsection{Series Inductance}
 Since the measured impedance of the capacitor goes up beyond 300MHz, this indicates the existance of some parasitic inductance.
 Since parasitic inductance is often introduced by the magnetic field caused by conductors, we choose to model it as \textbf{series parasitic inductance} (\Cref{fig:capacitor_cl}).
 
-The minimum impedance occurs at roughly 305MHz (which corresponds to S11 crossing the real axis).
-This indicates that the 305MHz is the resonance frequency of the LC circuit.
+The minimum impedance occurs at roughly 304MHz (which corresponds to S11 crossing the real axis).
+This indicates that the 304MHz is the resonance frequency of the LC circuit.
 So the series inductance can be calculated as
 \[
     L = \frac{1}{(2\pi f)^2 C}
-    = \frac{1}{(2\pi 305MHz)^2 \cdot 100pF}
+    = \frac{1}{(2\pi 304MHz)^2 \cdot 100pF}
     \approx
-    2.7nH.
+    2.74nH.
 \]
+As seen in \Cref{fig:capacitor_compare}, the LC model correctly predicts a minimum in the magnitude of the impedance around 300MHz, and the crossing of the real axis by the s parameter.
+
+\subsubsection{Series Resistance}
+Examining \Cref{fig:capacitor_compare} further, we see that our LC model still does not fully capture the electric properties of the real world capacitor.
+In \Cref{fig:capacitor_compare_z}, our LC model predicts far lower impedance at 304MHz than our measurements.
+
+Indeed, at resonance frequency, an ideal LC circuit would have $0$ impedance, which is impossible in the real world because there is always some resistance.
+We model this parasitic resistance as series resistance in \Cref{fig:capacitor_clr}, where its value is calculated by looking at the impedance at resonance frequency.
+
+At resonance frequency, the impedances of the inductor and the capacitor will cancel, so the only thing left would be the series resistance.
+Examining \Cref{tab:capacitor_meas}, we set the series resistance to $0.14\Omega$.
+Again, the results of LTSpice simulation are plotted in \Cref{fig:capacitor_compare}.
+With the introduction of the series resistance, we see that the magnitude of the impedance predicted by the model almost exactly matches that of the real componenet.
+
+\subsubsection{Other Parasitics}
+We are done a pretty good job of modelling the real life capacitor by introducing series inductance and series resistance.
+However, there are still some aspects of measured data that our model cannot explain.
+For example, in \Cref{fig:capacitor_compare_s}, our RLC model predicts that S11 will always stay on the unit circle, but in our measurements S11 goes inside the unit circle.
+This may be explained by adding other parasitics to our electric model (maybe parallel resistance), but that will be left for future work.
 
 \subsection{Inductor}
 

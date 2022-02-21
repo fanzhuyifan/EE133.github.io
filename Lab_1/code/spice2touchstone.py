@@ -10,7 +10,6 @@ def main(input, output, expr):
     l.parse()
     print(l.variables)
     net = Network()
-    print(l.frequency)
     f = l.frequency / 1e6
     z = eval(expr)
     z = z.reshape((-1, 1, 1))

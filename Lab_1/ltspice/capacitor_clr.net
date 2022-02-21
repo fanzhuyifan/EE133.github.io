@@ -1,0 +1,9 @@
+capacitor_cl
+V1 NP 0 AC 1
+C2 NP N001 100p
+L1 N001 N002 2.74n
+R1 N002 0 0.14
+.ac lin 501 50k 500Meg
+.SAVE V(NP) I(C2)
+.backanno
+.end
