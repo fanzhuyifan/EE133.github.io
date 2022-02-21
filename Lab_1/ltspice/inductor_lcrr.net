@@ -1,0 +1,10 @@
+inductor_lcr
+V1 NP 0 AC 1
+L1 NP N001 680n
+C1 NP 0 1.2p
+R1 N001 0 0.43
+R2 NP 0 3.4k
+.ac lin 501 50k 500Meg
+.SAVE V(NP) I(V1)
+.backanno
+.end

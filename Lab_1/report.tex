@@ -148,16 +148,19 @@ We measured the S-Parameters of the capacitor in the kit (item 7 in \Cref{fig:te
     \caption{Electric Characteristics of real capacitor compared with various models}
     \label{fig:capacitor_compare}
 \end{figure}
+
 \subsubsection{Ideal Capacitor Model}
 
 Using the impendance at 10MHz, we see that the capacitance is roughly
 $$\frac{1}{2\pi\cdot 10MHz \cdot 157 \Omega} \approx 100pF .$$
 So our first model of the element would just be an ideal capacitor of $100pF$ (\Cref{fig:capacitor_c}).
 
+The circuit is simulated in LTSpice and results are shown in \Cref{fig:capacitor_compare}.
 However, immediately we see that the ideal capacitor does not fully characterize the real capacitor.
-In the Smith chart (\Cref{fig:capacitor_compare_s}), S11 crosses the real axis and goes into the upper half of the unit circle, and in the impedance magnitude plot (\Cref{fig:capacitor_compare_z}), the impedance has a minimum at around 300MHz.
+In the Smith chart (\Cref{fig:capacitor_compare_s}), the measured S11 crosses the real axis and goes into the upper half of the unit circle, and in the impedance magnitude plot (\Cref{fig:capacitor_compare_z}), the measured impedance has a minimum at around 300MHz.
 
 \subsubsection{Series Inductance}
+
 Since the measured impedance of the capacitor goes up beyond 300MHz, this indicates the existance of some parasitic inductance.
 Since parasitic inductance is often introduced by the magnetic field caused by conductors, we choose to model it as \textbf{series parasitic inductance} (\Cref{fig:capacitor_cl}).
 
@@ -191,5 +194,176 @@ For example, in \Cref{fig:capacitor_compare_s}, our RLC model predicts that S11 
 This may be explained by adding other parasitics to our electric model (maybe parallel resistance), but that will be left for future work.
 
 \subsection{Inductor}
+
+\begin{figure}[h]
+    \centering
+    \begin{subfigure}{0.5\linewidth}
+        \includegraphics[width=\linewidth]{./pics/inductor_meas_smith.png}
+        \caption{S11 on Smith Chart}
+    \end{subfigure}%
+    \begin{subfigure}{0.5\linewidth}
+        \includegraphics[width=\linewidth]{./pics/inductor_meas_db.png}
+        \caption{Magnitude of Impedance}
+    \end{subfigure}
+
+    \begin{subfigure}{\linewidth}
+        \centering
+        \begin{tabular}{ |c|c|c| }
+            \hline
+            Frequency (MHz) & S11         & Impedance (Ohm)
+            \\\hline
+            0.050           & -0.98+0.01j & 0.43+0.21j
+            \\\hline
+            10.049          & -0.16+0.95j & 1.44+42.09j
+            \\\hline
+            100.040         & 0.97+0.16j  & 58.10+599.34j
+            \\\hline
+            178.032         & 0.97+0.00j  & 3378.06+19.91j
+            \\\hline
+            500.000         & 0.94-0.24j  & 55.44-389.13j
+            \\\hline
+        \end{tabular}
+        \caption{S11 and Impedance at certain frequencies}
+        \label{tab:inductor_meas}
+    \end{subfigure}
+
+    \caption{S Parameter of Measured Inductor}
+    \label{fig:inductor_meas}
+\end{figure}
+
+We measured the S-Parameters of the inductor in the kit (item 8 in \Cref{fig:test_loads}), and the results are depicted in \Cref{fig:inductor_meas}.
+
+\begin{figure}
+    \centering
+    \begin{subfigure}[b]{.5\linewidth}
+        \centering
+        \begin{tikzpicture}
+            \draw (0,0) to[L, label=680nH] ++(2,0);
+        \end{tikzpicture}
+        \caption{Ideal inductor Model}
+        \label{fig:inductor_l}
+    \end{subfigure}%
+    \begin{subfigure}[b]{.5\linewidth}
+        \centering
+        \begin{tikzpicture}
+            \draw (0,0) to[L, label=680nH] ++(4,0);
+            \draw (1, 0) to[short, *-] ++(0, 1)
+            to[C, label=1.2pF] ++(2, 0)
+            to[short, -*] ++(0, -1);
+        \end{tikzpicture}
+        \caption{Inductor with Parallel Capacitance}
+        \label{fig:inductor_lc}
+    \end{subfigure}%
+
+    \begin{subfigure}[b]{.5\linewidth}
+        \centering
+        \begin{tikzpicture}
+            \draw (0,0) to[short] ++(1,0)
+            to[L, label=680nH] ++(2,0)
+            to[R, label=$0.43\Omega$] ++(2,0)
+            to[short] ++(1, 0);
+            \draw (1, 0) to[short, *-] ++(0, 1)
+            to[C, label=1.2pF] ++(4, 0)
+            to[short, -*] ++(0, -1);
+        \end{tikzpicture}
+        \caption{Inductor with Series Resistance and Parallel Capacitance}
+        \label{fig:inductor_lcr}
+    \end{subfigure}%
+    \begin{subfigure}[b]{.5\linewidth}
+        \centering
+        \begin{tikzpicture}
+            \draw (0,0) to[short] ++(1,0)
+            to[L, label=680nH] ++(2,0)
+            to[R, label=$0.43\Omega$] ++(2,0)
+            to[short] ++(1, 0);
+            \draw (1, 0) to[short, *-] ++(0, 1)
+            to[C, label=1.2pF] ++(4, 0)
+            to[short, -*] ++(0, -1);
+            \draw (1, 0) to[short, *-] ++(0, -1)
+            to[R, label=$3.4k\Omega$] ++(4, 0)
+            to[short, -*] ++(0, 1);
+        \end{tikzpicture}
+        \caption{Inductor with Series Resistance, Parallel Capacitance, and Parallel Resistance}
+        \label{fig:inductor_lcrr}
+    \end{subfigure}%
+    \caption{Electric Models of Real Life inductor}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{./pics/inductor_models_smith.png}
+        \caption{S11 of electric models of Inductor on Smith Chart}
+        \label{fig:inductor_compare_s}
+    \end{subfigure}
+
+    \begin{subfigure}{\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{./pics/inductor_models_db.png}
+        \caption{Magnitude of Impedance of electric models of Inductor}
+        \label{fig:inductor_compare_z}
+    \end{subfigure}
+    \caption{Electric Characteristics of real inductor compared with various models}
+    \label{fig:inductor_compare}
+\end{figure}
+
+\subsubsection{Ideal Inductor Model}
+
+Using the impendance at 10MHz, we see that the inductance is roughly
+$$\frac{42\Omega}{2\pi\cdot 10MHz \cdot 157 \Omega} \approx 670nH .$$
+This is fairly close to the standard inductance value of $680nH$.
+So our first model of the element would just be an ideal inductor of $680nH$ (\Cref{fig:inductor_l}).
+
+The circuit is simulated in LTSpice and results are shown in \Cref{fig:inductor_compare}.
+However, immediately we see that the ideal inductor does not fully characterize the real inductor.
+In the Smith chart (\Cref{fig:inductor_compare_s}), the measured S11 crosses the real axis and goes into the lower half of the unit circle, and in the impedance magnitude plot (\Cref{fig:inductor_compare_z}), the measured impedance has a maximum at around 170MHz.
+
+
+\subsubsection{Parallel Capacitance}
+Since the measured impedance of the inductor goes down beyond 170MHz, this indicates the existance of some parasitic capacitance.
+In an inductor, the closely based windings can act like capacitors, thus introducing some parallel capacitance (\Cref{fig:inductor_lc}).
+
+The maximum impedance occurs at roughly 178MHz (which corresponds to S11 crossing the real axis).
+This indicates that the 178MHz is the resonance frequency of the parallel LC circuit.
+So the parallel capacitance can be calculated as
+\[
+    C = \frac{1}{(2\pi f)^2 L}
+    = \frac{1}{(2\pi 178MHz)^2 \cdot 680nH}
+    \approx
+    1.2pF.
+\]
+As seen in \Cref{fig:inductor_compare}, the parallel LC model correctly predicts a maximum in the magnitude of the impedance around 178MHz, and the crossing of the real axis by the s parameter.
+
+\subsubsection{Series Resistance}
+However, as evident in \Cref{fig:inductor_compare_z}, the parallel LC model has a much higher Q than the actual inductor.
+
+To lower the Q value, we should add some resistance.
+The inductor is a big coil of wires that naturally have some resistance;
+so we update our model to include that (\Cref{fig:inductor_lcr}).
+Note that the series resistance is still parallel with the capacitance, since otherwise we would still have infinite impedance at resonance.
+
+The value of the series resistance can be taken to be the real part of the impedance at low frequencies, when the inductor behaves like a short and the capacitor behaves like an open.
+So we set series resistance to $0.43\Omega$.
+
+The LTSpice simulated results are shown in \Cref{fig:inductor_compare}, and we can see that introduction of series impedance hardly reduced the Q value at all.
+
+So we see that there must be some other important parasitics that we have not considered.
+
+\subsubsection{Parallel Resistance}
+
+A far smaller impedance than expected at resonance frequency suggests that we should consider adding some parallel resistance (\Cref{fig:inductor_lcrr}).
+Its value can be taken to be the real part of the impedance at resonance, where the parallel $L$ and $C$ parts approximately represent a short.
+So we set parallel resistance to $3.4k\Omega$.
+
+As we can see from the results in \Cref{fig:inductor_compare_z}, adding this parallel resistance can make the model match the impedance maximum at around 178MHz very well;
+and as shown in \Cref{fig:inductor_compare_s}, this even produces a better match at lower frequencies around $0\Omega$ than without the parallel resistance.
+
+\subsubsection{Other Parasitics}
+Our above model of the inductor still diverges from the measured inductor in that at higher frequencies -- the measured impedance magnitude is bigger than what the model predicts.
+Naively, this would suggest that the parallel capacitance should be smaller.
+However, changing the capacitance would also move the resonance frequency away from the expected value at 178MHz.
+So we need to investigate other parasitics correctly explain this discrepancy.
+
 
 \end{document}
