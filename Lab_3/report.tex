@@ -49,7 +49,7 @@ Typically, one of the inputs to the mixer is a local oscillator (LO), and for do
 In this lab we build a diode-ring mixer, and test its various characteristics.
 The diode-ring mixer is a passive, double balanced mixer.
 The passive design allows for greater bandwidth, at the cost of greater conversion loss;
-and the double balanced design provides great RF and LO supression.
+and the double balanced design provides great RF and LO suppression.
 
 \section{Experimental Setup}
 \tikzset{circ_e/.style={
@@ -130,10 +130,10 @@ The output spectrum from 0Hz to 40MHz is shown in \Cref{fig:mixer_out}, where th
 \end{figure}
 
 From the figure, we can see that both the sum (17.1MHz) and different (2.9MHz) frequencies are at least 20dB above the intermodulation distortions, which means our mixer mixes the two inputs pretty well.
-In addition, the LO leakage is virtually non-existant -- well below -50dB at 7.1MHz.
+In addition, the LO leakage is virtually non-existent -- well below -50dB at 7.1MHz.
 
 Interestingly, at this level of input, the highest spurs occur at $3RF\pm LO$ and $3LO \pm RF$.
-These are all fourth-order intermodulations, with odd orders for both the RF and the LO componenets.
+These are all fourth-order intermodulations, with odd orders for both the RF and the LO components.
 We hypothesize that this particular diode-ring mixer network suppresses intermodulations when either the RF or the LO has even orders.
 To validate this hypothesis, we lowered RF to -10dBm, while keeping LO at 0dBm.
 The results are shown in \Cref{fig:mixer_out_2}.
@@ -162,11 +162,13 @@ An important performance metric of mixers is the conversion gain, defined as the
 Ideally, the conversion gain would be constant at all RF input levels.
 However, for real mixers, as the RF input power increases, the IF output power cannot keep up with the increase in input.
 The point where the ideal output power is 1dB lower than the actual output power is called the 1dB compression point.
+Operating below the 1dB compression point guarantees good linearity between the input and the output of the mixer;
+so little distortion is introduced to the signal.
 
 We measured the 1dB compression point and gain when LO=0dBm by stepping the RF input power from -10dBm to 0dBm.
 The results are plotted in \Cref{fig:rf_if}.
 
-\begin{figure}
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.5\linewidth]{./pics/1db_compression.png}
     \caption{RF Input Power vs IF Output Power (LO=0dBm)}
@@ -181,11 +183,30 @@ The $0.5dB$ discrepancy between the measured $-6.5dB$ and the theoretical $0.5dB
 However, above $-4dBm$, the ideal response and actual response start to differ, and we reach the 1dB compression point around $-0.5dBm$.
 
 \subsection{Conversion Gain vs LO Drive Level}
+To measure the dependance of conversion gain on LO Drive Level, we measured the conversion gain with LO drive level from -5dBm to 3dBm.
+Since the conversion gain is more actually measured at low RF levels, we kept RF input at -10dBm, and calculated the gain as
+\[ \text{IF output level} + 10dBm.
+\]
+The results are plotted in \Cref{fig:lo_gain}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=.5\linewidth]{./pics/lo_gain.png}
+    \caption{Dependance of Conversion Gain on LO Drive Level}
+    \label{fig:lo_gain}
+\end{figure}
+
+From the plot, we can see that at low LO levels, the gain increases by almost 1dB for every 1dB increase in LO level.
+At high LO levels, the conversion gain becomes insensitive to the LO level, and almost reaches the theoretical -6dBm.
+
+This behavior is both expected and desired.
+Since the LO just serves to switch RF on and off, when it is high enough, the output should be independent of its value.
+In addition, the relative independence of conversion gain on LO drive level allows us to choose a wide range of LO drive levels.
 
 \subsection{Third-Order Intercept}
 
-\subsection{Port Isolations}
+\subsection{Port Isolation}
 
 \section{Conclusions}
-Learn more about why some harmonics are more prominant
+Learn more about why some harmonics are more prominent
 \end{document}
