@@ -157,8 +157,28 @@ In this case, the biggest intermodulations are at $3LO\pm RF$, $5LO-RF$, and som
 The $5LO-RF$ still confirms our hypothesis of the mixer suppressing even orders of LO and RF.
 The component at 39.7MHz is quite weird, and we have no idea why this intermodulation would be so big.
 
-\subsection{1dB Compression Point}
+\subsection{Conversion Gain and 1dB Compression Point}
+An important performance metric of mixers is the conversion gain, defined as the power level of the IF output minus the power level of the RF input in dBs.
+Ideally, the conversion gain would be constant at all RF input levels.
+However, for real mixers, as the RF input power increases, the IF output power cannot keep up with the increase in input.
+The point where the ideal output power is 1dB lower than the actual output power is called the 1dB compression point.
 
+We measured the 1dB compression point and gain when LO=0dBm by stepping the RF input power from -10dBm to 0dBm.
+The results are plotted in \Cref{fig:rf_if}.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{./pics/1db_compression.png}
+    \caption{RF Input Power vs IF Output Power (LO=0dBm)}
+    \label{fig:rf_if}
+\end{figure}
+
+From the figure, we can see that under -4dBm, the relationship between input power and output power (in dBs) is very linear, with gain around $-6.5dB$.
+Ideally, the diode ring passive mixer would equally divide all the input power between the sum and the difference frequencies in the output.
+So we would expect to see a gain of $-6dB$ for both.
+The $0.5dB$ discrepancy between the measured $-6.5dB$ and the theoretical $0.5dB$ is probably due to non-ideal componenents.
+
+However, above $-4dBm$, the ideal response and actual response start to differ, and we reach the 1dB compression point around $-0.5dBm$.
 
 \subsection{Conversion Gain vs LO Drive Level}
 
