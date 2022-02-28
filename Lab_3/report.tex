@@ -26,6 +26,7 @@
 \maketitle
 
 \begin{abstract}
+    In this lab we build a diode-ring mixer and investigate its various properties.
 \end{abstract}
 
 \section{Introduction}
@@ -203,10 +204,28 @@ This behavior is both expected and desired.
 Since the LO just serves to switch RF on and off, when it is high enough, the output should be independent of its value.
 In addition, the relative independence of conversion gain on LO drive level allows us to choose a wide range of LO drive levels.
 
-\subsection{Third-Order Intercept}
+\subsection{Input Intercept Point}
+We plotted the magnitude of the fundamental frequencies (sum and difference), as well as the magnitude of the most important spurs at $3RF\pm LO$ and $3LO \pm RF$, when input RF power ranges from -10dBm to 0dBm in \Cref{fig:intercept}.
 
-\subsection{Port Isolation}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{./pics/intercept.png}
+    \caption{Magnitude of Components of Output vs Input Power}
+    \label{fig:intercept}
+\end{figure}
+
+As we can see in the figure, the power (in dB) of spurs at $3LO \pm RF$ grows roughly with slope 1 with input RF power, while that of spurs at $3RF \pm LO$ grows roughly with slope 3 with input RF power (linear regression gives 3.3).
+
+The difference in slope is probably explained by the different orders of RF in the intermodulation component.
+In $3LO \pm RF$, RF has order $1$, so power of this component has slope 1 against input RF power;
+while in $3RF \pm LO$, RF has order $3$, so power of this component has slope 3.
+
+The predicted power of the $3RF \pm LO$ components roughly intersect the ideal fundamental response when RF input power is 12dBm.
+This is a so-called ``Third Order Input Intercept Point''.
 
 \section{Conclusions}
-Learn more about why some harmonics are more prominent
+In the lab, we studied the various properties of the diode ring mixer, including conversion gain, 1dB compression point, dependance of conversion gain on LO level, and input intercept point.
+This work can be extended by better understanding the power of intermodulations in the diode-ring mixer, both theoretically and practically.
+A better model of the mixer would allow us to better choose IF frequency and relevant filters to minimize the influence of intermodulations on the desired output.
+
 \end{document}
