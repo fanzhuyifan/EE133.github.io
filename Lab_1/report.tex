@@ -31,7 +31,7 @@
 Real life passive components are far from ideal.
 All capacitors, inductors, and resistors have some parasitic capacitance, inductance, and resistance.
 But how can we measure these parasitics?
-How can we build good electric models of these real-world componenets?
+How can we build good electric models of these real-world components?
 To this end, we use Vector Network Analyzers (VNA) to measure the frequency response of these passive components, use our understanding of circuit elements to conjecture about good circuit models, and use LTSpice to verify that the circuit models match what we observe.
 
 \section{Experimental Setup}
@@ -52,7 +52,7 @@ To this end, we use Vector Network Analyzers (VNA) to measure the frequency resp
     \caption{Picture of Tools used in Experiment}
 \end{figure}
 
-The passive componenets of interest are all surface mount components on the \emph{RF Demo Kit NWDZ Rev-01-10} (\Cref{fig:test_loads}), and
+The passive components of interest are all surface mount components on the \emph{RF Demo Kit NWDZ Rev-01-10} (\Cref{fig:test_loads}), and
 we use the NanoVNA (\Cref{fig:nanovna}) to perform the measurements.
 Care is taken to calibrate the NanoVNA each time before use.
 
@@ -151,7 +151,7 @@ We measured the S-Parameters of the capacitor in the kit (item 7 in \Cref{fig:te
 
 \subsubsection{Ideal Capacitor Model}
 
-Using the impendance at 10MHz, we see that the capacitance is roughly
+Using the impedance at 10MHz, we see that the capacitance is roughly
 $$\frac{1}{2\pi\cdot 10MHz \cdot 157 \Omega} \approx 100pF .$$
 So our first model of the element would just be an ideal capacitor of $100pF$ (\Cref{fig:capacitor_c}).
 
@@ -161,7 +161,7 @@ In the Smith chart (\Cref{fig:capacitor_compare_s}), the measured S11 crosses th
 
 \subsubsection{Series Inductance}
 
-Since the measured impedance of the capacitor goes up beyond 300MHz, this indicates the existance of some parasitic inductance.
+Since the measured impedance of the capacitor goes up beyond 300MHz, this indicates the existence of some parasitic inductance.
 Since parasitic inductance is often introduced by the magnetic field caused by conductors, we choose to model it as \textbf{series parasitic inductance} (\Cref{fig:capacitor_cl}).
 
 The minimum impedance occurs at roughly 304MHz (which corresponds to S11 crossing the real axis).
@@ -185,7 +185,7 @@ We model this parasitic resistance as series resistance in \Cref{fig:capacitor_c
 At resonance frequency, the impedances of the inductor and the capacitor will cancel, so the only thing left would be the series resistance.
 Examining \Cref{tab:capacitor_meas}, we set the series resistance to $0.14\Omega$.
 Again, the results of LTSpice simulation are plotted in \Cref{fig:capacitor_compare}.
-With the introduction of the series resistance, we see that the magnitude of the impedance predicted by the model almost exactly matches that of the real componenet.
+With the introduction of the series resistance, we see that the magnitude of the impedance predicted by the model almost exactly matches that of the real component.
 
 \subsubsection{Other Parasitics}
 We are done a pretty good job of modelling the real life capacitor by introducing series inductance and series resistance.
@@ -310,7 +310,7 @@ We measured the S-Parameters of the inductor in the kit (item 8 in \Cref{fig:tes
 
 \subsubsection{Ideal Inductor Model}
 
-Using the impendance at 10MHz, we see that the inductance is roughly
+Using the impedance at 10MHz, we see that the inductance is roughly
 $$\frac{42\Omega}{2\pi\cdot 10MHz \cdot 157 \Omega} \approx 670nH .$$
 This is fairly close to the standard inductance value of $680nH$.
 So our first model of the element would just be an ideal inductor of $680nH$ (\Cref{fig:inductor_l}).
@@ -321,7 +321,7 @@ In the Smith chart (\Cref{fig:inductor_compare_s}), the measured S11 crosses the
 
 
 \subsubsection{Parallel Capacitance}
-Since the measured impedance of the inductor goes down beyond 170MHz, this indicates the existance of some parasitic capacitance.
+Since the measured impedance of the inductor goes down beyond 170MHz, this indicates the existence of some parasitic capacitance.
 In an inductor, the closely based windings can act like capacitors, thus introducing some parallel capacitance (\Cref{fig:inductor_lc}).
 
 The maximum impedance occurs at roughly 178MHz (which corresponds to S11 crossing the real axis).
@@ -368,8 +368,8 @@ So we need to investigate other parasitics correctly explain this discrepancy.
 \section{Summary}
 In this lab we used VNA and LTSpice to build electric models that describe a capacitor and inductor.
 We discovered that the capacitor can be pretty well described by a capacitor, an inductor, and a resistor in series; but the inductor needs a parallel capacitor, some series resistance, as well as some parallel resistance to model well.
-Suprisingly, the parallel resistance of the inductor is quite small -- only $3.4k\Omega$.
+Surprisingly, the parallel resistance of the inductor is quite small -- only $3.4k\Omega$.
 
-This work can be extended by better understanding the residual parasitics of these componenents, as well as automating the process of building electric models for passive componenets.
+This work can be extended by better understanding the residual parasitics of these components, as well as automating the process of building electric models for passive components.
 
 \end{document}
