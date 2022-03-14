@@ -12,7 +12,8 @@
 \linespread{0.9}
 \hypersetup{
     colorlinks = true,
-    linkbordercolor = {black}
+    linkbordercolor = {black},
+    linkcolor=black
 }
 \begin{document}
 \title{Lab 1 -- Measuring ``Parasitics'' of Passive Components with a VNA}
@@ -67,27 +68,27 @@ Care is taken to calibrate the NanoVNA each time before use.
     \end{subfigure}%
     \begin{subfigure}{0.5\linewidth}
         \includegraphics[width=\linewidth]{./pics/capacitor_meas_db.png}
-        \caption{Magnitude of Impedance}
+        \caption{Magnitude of Impedance (in dBOmhs)}
     \end{subfigure}
 
     \begin{subfigure}{\linewidth}
         \centering
-        \begin{tabular}{ |c|c|c| }
+        \begin{tabular}{ |c|c|c|c| }
             \hline
-            Frequency (MHz) & S11         & Impedance (Ohm)
+            Frequency (MHz) & S11         & Impedance (Ohm)   & Comment
             \\\hline
-            0.05            & 1.00-0.00j  & 1114.88-24861.18j
+            0.05            & 1.00-0.00j  & 1114.88-24861.18j & Close to DC
             \\\hline
-            10.049          & 0.82-0.58j  & -0.17-157.00j
+            10.049          & 0.82-0.58j  & -0.17-157.00j     & Low Frequency (Capacitive Regime)
             \\\hline
-            100.04          & -0.86-0.53j & -0.41-14.14j
+            100.04          & -0.86-0.53j & -0.41-14.14j      & Low Frequency (Capacitive Regime)
             \\\hline
-            304.020         & -0.99-0.00j & 0.14-0.03j
+            304.020         & -0.99-0.00j & 0.14-0.03j        & Resonance Frequency
             \\\hline
-            500             & -0.94+0.20j & 0.98+5.25j
+            500             & -0.94+0.20j & 0.98+5.25j        & High Frequency (Inductive Regime)
             \\\hline
         \end{tabular}
-        \caption{S11 and Impedance at certain frequencies}
+        \caption{S11 and Impedance at selected frequencies}
         \label{tab:capacitor_meas}
     \end{subfigure}
 
@@ -142,7 +143,7 @@ We measured the S-Parameters of the capacitor in the kit (item 7 in \Cref{fig:te
     \begin{subfigure}{\linewidth}
         \centering
         \includegraphics[width=\linewidth]{./pics/capacitor_models_db.png}
-        \caption{Magnitude of Impedance of electric models of capacitor}
+        \caption{Magnitude of Impedance of electric models of capacitor in dBOhms.}
         \label{fig:capacitor_compare_z}
     \end{subfigure}
     \caption{Electric Characteristics of real capacitor compared with various models}
@@ -203,27 +204,27 @@ This may be explained by adding other parasitics to our electric model (maybe pa
     \end{subfigure}%
     \begin{subfigure}{0.5\linewidth}
         \includegraphics[width=\linewidth]{./pics/inductor_meas_db.png}
-        \caption{Magnitude of Impedance}
+        \caption{Magnitude of Impedance (in dBOhms)}
     \end{subfigure}
 
     \begin{subfigure}{\linewidth}
         \centering
-        \begin{tabular}{ |c|c|c| }
+        \begin{tabular}{ |c|c|c| c|}
             \hline
-            Frequency (MHz) & S11         & Impedance (Ohm)
+            Frequency (MHz) & S11         & Impedance (Ohm) & Comment
             \\\hline
-            0.050           & -0.98+0.01j & 0.43+0.21j
+            0.050           & -0.98+0.01j & 0.43+0.21j      & Close to DC
             \\\hline
-            10.049          & -0.16+0.95j & 1.44+42.09j
+            10.049          & -0.16+0.95j & 1.44+42.09j     & Low Frequency (Inductive Regime)
             \\\hline
-            100.040         & 0.97+0.16j  & 58.10+599.34j
+            100.040         & 0.97+0.16j  & 58.10+599.34j   & Low Frequency (Inductive Regime)
             \\\hline
-            178.032         & 0.97+0.00j  & 3378.06+19.91j
+            178.032         & 0.97+0.00j  & 3378.06+19.91j  & Resonance Frequency
             \\\hline
-            500.000         & 0.94-0.24j  & 55.44-389.13j
+            500.000         & 0.94-0.24j  & 55.44-389.13j   & High Frequency (Capacitive Regime)
             \\\hline
         \end{tabular}
-        \caption{S11 and Impedance at certain frequencies}
+        \caption{S11 and Impedance at selected frequencies}
         \label{tab:inductor_meas}
     \end{subfigure}
 
@@ -266,7 +267,7 @@ We measured the S-Parameters of the inductor in the kit (item 8 in \Cref{fig:tes
             to[C, label=1.2pF] ++(4, 0)
             to[short, -*] ++(0, -1);
         \end{tikzpicture}
-        \caption{Inductor with Series Resistance and Parallel Capacitance}
+        \caption{Inductor Model with Additional Series Resistance}
         \label{fig:inductor_lcr}
     \end{subfigure}%
     \begin{subfigure}[b]{.5\linewidth}
@@ -283,7 +284,7 @@ We measured the S-Parameters of the inductor in the kit (item 8 in \Cref{fig:tes
             to[R, label=$3.4k\Omega$] ++(4, 0)
             to[short, -*] ++(0, 1);
         \end{tikzpicture}
-        \caption{Inductor with Series Resistance, Parallel Capacitance, and Parallel Resistance}
+        \caption{Inductor Model with Additional Parallel Resistance}
         \label{fig:inductor_lcrr}
     \end{subfigure}%
     \caption{Electric Models of Real Life inductor}
@@ -301,7 +302,7 @@ We measured the S-Parameters of the inductor in the kit (item 8 in \Cref{fig:tes
     \begin{subfigure}{\linewidth}
         \centering
         \includegraphics[width=\linewidth]{./pics/inductor_models_db.png}
-        \caption{Magnitude of Impedance of electric models of Inductor}
+        \caption{Magnitude of Impedance of electric models of Inductor in dBOhms}
         \label{fig:inductor_compare_z}
     \end{subfigure}
     \caption{Electric Characteristics of real inductor compared with various models}
